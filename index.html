@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="x-build" content="20261106-093154">
+<meta name="x-build" content="20261106-120650">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>offer 榜单 · 爬藤流程原型</title>
 
@@ -264,7 +264,6 @@
   .kf-col { position:sticky; top:600px; z-index:16; height:0; }
   .kf { position:absolute; right:12px; width:46px; height:46px; border-radius:50%; background:#E8355E; color:#fff; display:flex; align-items:center; justify-content:center; font-size:9px; text-align:center; box-shadow:0 4px 10px rgba(232,53,94,.35); cursor:pointer; }
   .reserved { margin:16px 12px; border:1px dashed #D5D5D5; border-radius:12px; padding:20px 14px; text-align:center; background:#FCFCFC; }
-  .demotip { padding:10px 12px 6px; font-size:10.5px; color:#B5B5B5; text-align:center; }
   .reserved .t { font-size:13px; color:#999; font-weight:600; }
   .reserved .s { font-size:10.5px; color:#BBB; margin-top:5px; line-height:1.7; }
   /* 1v1 选校评估按钮：sticky 钉底；内容不满一屏时由 flex + margin-top:auto 推到屏幕底部（2026-11-05） */
@@ -459,7 +458,7 @@
             <div class="big2">艺术爬藤offer榜单</div>
           </div>
           <div class="excard ex-ft tap" id="qdCard">
-            <div class="big2">全日制榜单</div>
+            <div class="big2">全日制学院</div>
           </div>
         </div>
       </div>
@@ -1069,9 +1068,8 @@ function applyFilters(){
       return rankRow([no, r[1], r[2], r[3], r[4], r[5], r[6]], 'none');
     }).join('');
   } else {
-    /* 无匹配时不展示「没有」空态，改为示例院校展示（2026-11-05 用户要求） */
-    box.innerHTML = '<div class="demotip">当前筛选暂无匹配院校 · 以下为示例院校</div>' +
-      RANK.slice(0, 5).map(function(r, i){
+    /* 无匹配时不展示「没有」空态，直接展示示例院校（2026-11-06 用户要求删提示行） */
+    box.innerHTML = RANK.slice(0, 5).map(function(r, i){
         var no = (i + 1) < 10 ? '0' + (i + 1) : '' + (i + 1);
         return rankRow([no, r[1], r[2], r[3], r[4], r[5], r[6]], 'none');
       }).join('');
@@ -1338,7 +1336,7 @@ document.getElementById('smartGo').addEventListener('click', function(){
 
 var FOPTS = {
   country: ['英国','美国','亚洲','欧洲','澳洲','北美','中国香港','日本','韩国','新加坡','意大利','法国','加拿大'],
-  dept: ['时尚科系','数字艺术与设计科系','AI空间未来科系','工业交互科系','艺术人文科系','游戏动画科系','影视传媒科系','音乐留学Music Plus','其他'],
+  dept: ['游戏动画科系','时尚科系','数字艺术与设计科系','AI空间未来科系','工业交互科系','艺术人文科系','影视传媒科系','音乐留学Music Plus','其他'],
   degree: ['本科','研究生','预科']
 };
 FOPTS.wallDept = FOPTS.dept;     // offer 墙-科系筛选（复用筛选页）
