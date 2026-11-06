@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="x-build" content="20261106-092330">
+<meta name="x-build" content="20261106-093154">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>offer 榜单 · 爬藤流程原型</title>
 
@@ -144,7 +144,7 @@
   .exwrap { margin:26px 12px 2px; background:linear-gradient(150deg,#F3EBFF 0%,#FFE7F0 60%,#FFEDF3 100%); border-radius:16px; padding:13px 9px 9px; }
   .exhead { font-size:14.5px; font-weight:800; color:#4A1B86; padding:0 5px 10px; display:flex; align-items:center; gap:7px; }
   .exhead::before { content:''; width:4px; height:14px; border-radius:2px; background:linear-gradient(180deg,#6C2BD9,#E8355E); }
-  .exhead::after { content:'SFK EXCLUSIVE'; font-size:8px; font-weight:800; letter-spacing:1.5px; color:#B678E8; margin-left:2px; transform:translateY(1px); }
+  .exhead::after { content:''; }
   .exgrid { display:grid; grid-template-columns:1fr 1fr; gap:9px; padding:0; }
   .excard { border-radius:12px; padding:15px 12px; color:#fff; position:relative; overflow:hidden; box-shadow:0 3px 8px rgba(90,30,140,.16); }
   .excard .big2 { font-size:12.5px; font-weight:800; line-height:1.3; white-space:nowrap; }
@@ -1146,19 +1146,10 @@ function toast(msg){
   toastTimer = setTimeout(function(){ t.className = 'toast'; }, 1800);
 }
 
-// 下载：生成当前筛选状态的海报（原型演示为弹层预览 + 模拟保存到相册）
-function openPoster(){
-  var rows = ivyFilteredRows();
-  var label = RGN_LABEL[curRegion];
-  document.getElementById('pSub').textContent = label + ' · 共 ' + rows.length + ' 所';
-  document.getElementById('pRows').innerHTML = rows.slice(0, 8).map(function(r, i){
-    var no = (i + 1) < 10 ? '0' + (i + 1) : '' + (i + 1);
-    return rankRow([no, r[1], r[2], r[3], r[4], r[5], r[6], r[7]], curRegion === 'us' ? 'us' : 'qs');
-  }).join('');
-  document.getElementById('pmodal').className = 'pmodal show';
-}
-
-document.getElementById('fabDl').addEventListener('click', openPoster);
+// 下载：2026-11-06 改为直接提示已保存（美本/英国·港新同一处理，不再弹海报预览弹层）
+document.getElementById('fabDl').addEventListener('click', function(){
+  toast('已保存图片到本地');
+});
 document.getElementById('fabShare').addEventListener('click', function(){
   toast('已唤起分享面板，可转发给微信好友（原型演示）');
 });
