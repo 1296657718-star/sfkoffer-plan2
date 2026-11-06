@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="x-build" content="20261106-120650">
+<meta name="x-build" content="20261106-155914">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>offer 榜单 · 爬藤流程原型</title>
 
@@ -146,8 +146,12 @@
   .exhead::before { content:''; width:4px; height:14px; border-radius:2px; background:linear-gradient(180deg,#6C2BD9,#E8355E); }
   .exhead::after { content:''; }
   .exgrid { display:grid; grid-template-columns:1fr 1fr; gap:9px; padding:0; }
+  .exgrid3 { grid-template-columns:repeat(3,1fr); gap:8px; }
+  /* 三卡对齐上方 gcard 风格：小字帽行 + 加粗名称行，允许换行（2026-11-06） */
+  .exgrid3 .excard { padding:12px 6px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .exgrid3 .big2 { font-size:10.5px; letter-spacing:-.2px; margin-top:0; line-height:1.4; white-space:normal; }
   .excard { border-radius:12px; padding:15px 12px; color:#fff; position:relative; overflow:hidden; box-shadow:0 3px 8px rgba(90,30,140,.16); }
-  .excard .big2 { font-size:12.5px; font-weight:800; line-height:1.3; white-space:nowrap; }
+  .excard .big2 { font-size:12.5px; font-weight:800; line-height:1.3; }
   .excard .orb { position:absolute; border-radius:50%; background:rgba(255,255,255,.14); }
   .ex-ivy { background:linear-gradient(100deg,#F0326E 0%,#8B2BD9 100%); }
   .ex-ft { background:linear-gradient(100deg,#D92B62 0%,#7226C9 100%); }
@@ -175,10 +179,7 @@
   .lgsch { margin-top:4px; font-size:34px; font-weight:900; line-height:1; position:relative; }
   .lgsch small { font-size:13px; font-weight:800; margin-left:2px; }
   .lgdate { margin-top:10px; font-size:10px; opacity:.8; line-height:1.6; }
-  /* 区域切换器：嵌入长图内、无底色（2026-11-06） */
-  .rgseg { background:transparent; margin:6px 12px 0; }
-  .rgseg .sg { background:transparent; border:1px solid rgba(255,255,255,.3); border-radius:10px; color:rgba(255,255,255,.62); font-size:15px; font-weight:700; padding:8px 0; white-space:nowrap; }
-  .rgseg .sg.on { background:transparent; border-color:rgba(255,255,255,.75); color:#fff; font-weight:800; }
+  /* 区域切换器已移至 p1 独家榜单区入口卡（2026-11-06） */
   /* p3 底部 CTA：无底色，黑色圆角块悬浮（2026-11-05 试验）；渐变铺满全页 */
   #p3 .lgwrap { flex:1; }
   #p3 .cta-wrap { background:transparent; }
@@ -451,11 +452,14 @@
       </div>
 
       <div class="exwrap">
-        <div class="exhead">斯芬克独家榜单</div>
-        <div class="exgrid">
-          <div class="excard ex-ivy tap" data-go="p3">
+        <div class="exhead">斯芬克独家艺术爬藤榜单</div>
+        <div class="exgrid exgrid3">
+          <div class="excard ex-ivy tap" data-go="p3" data-region="us">
             <div class="orb" style="width:52px;height:52px;right:-14px;top:-12px"></div>
-            <div class="big2">艺术爬藤offer榜单</div>
+            <div class="big2">美本<br>爬藤榜</div>
+          </div>
+          <div class="excard ex-ft tap" data-go="p3" data-region="ukhk">
+            <div class="big2">英港新<br>爬藤榜</div>
           </div>
           <div class="excard ex-ft tap" id="qdCard">
             <div class="big2">全日制学院</div>
@@ -531,14 +535,10 @@
       </div>
 
       <div class="lgwrap">
-        <div class="seg rgseg" id="regionSeg">
-          <div class="sg on" data-region="us">美本</div>
-          <div class="sg" data-region="ukhk">英国 · 港新</div>
-        </div>
         <div class="lghead">
           <div class="orb"></div>
           <div class="off">OFFER</div>
-          <div class="lgtitle">艺术爬藤offer榜单</div>
+          <div class="lgtitle" id="lgTitle">斯芬克2027<br>美本爬藤榜单</div>
           <div class="lg-lab">斩获offer</div>
           <div class="lgnum" id="lgNum">0<small>枚+</small></div>
           <div class="lg-lab">累计奖学金约(人民币)</div>
@@ -725,14 +725,9 @@
       <div class="status"><span>9:41</span><span>●●● ⚡ ▮</span></div>
       <div class="navbar">
         <div class="back tap" data-back="p1"><svg class="ic"><use href="#i-left"/></svg></div>
-        <div class="ttl" style="font-size:15px">全日制榜单</div>
+        <div class="ttl" style="font-size:15px">全日制offer榜单</div>
         <div class="sp"></div>
         <div class="capsule">···</div>
-      </div>
-
-      <div style="background:linear-gradient(120deg,#F0326E 0%,#8B2BD9 100%); color:#fff; padding:20px 14px 22px; position:relative; overflow:hidden;">
-        <div class="orb" style="width:120px;height:120px;background:rgba(255,255,255,.12);right:-34px;top:-20px"></div>
-        <div style="font-size:27px;font-weight:800;line-height:1.25;margin-top:4px;letter-spacing:.5px">全日制offer榜单</div>
       </div>
 
       <!-- 与 p3 统一：顶部 seg 切换，默认艺术高中OFFER榜 -->
@@ -1015,6 +1010,9 @@ function renderIvy(){
   var total = flat.reduce(function(a, r){ return a + offerNum(r[2]); }, 0);
   var numEl = document.getElementById('lgNum');
   if(numEl) numEl.innerHTML = total + '<small>枚+</small>';
+  // 2026-11-06：大标题按方向显示两行「斯芬克2027 / 美本爬藤榜单（英港新爬藤榜单）」（申请季口径 2027）
+  var titleEl = document.getElementById('lgTitle');
+  if(titleEl) titleEl.innerHTML = curRegion === 'us' ? '斯芬克2027<br>美本爬藤榜单' : '斯芬克2027<br>英港新爬藤榜单';
   document.querySelectorAll('#tierBox .icard').forEach(function(el){
     el.addEventListener('click', function(){ openSchool(lastIvyRows[+el.dataset.i]); });
   });
@@ -1105,7 +1103,14 @@ function go(id){
 }
 
 document.querySelectorAll('[data-go]').forEach(function(el){
-  el.addEventListener('click', function(){ go(el.dataset.go); });
+  el.addEventListener('click', function(){
+    // 独家榜单入口卡带 data-region：进入 p3 前先切区域并重渲染
+    if(el.dataset.region && el.dataset.region !== curRegion){
+      curRegion = el.dataset.region;
+      renderIvy();
+    }
+    go(el.dataset.go);
+  });
 });
 document.querySelectorAll('[data-back]').forEach(function(el){
   el.addEventListener('click', function(e){ e.stopPropagation(); go(el.dataset.back); });
@@ -1126,14 +1131,7 @@ document.querySelectorAll('#qdSeg .sg').forEach(function(el){
   });
 });
 renderQd();
-document.querySelectorAll('#regionSeg .sg').forEach(function(el){
-  el.addEventListener('click', function(){
-    if(curRegion === el.dataset.region) return;
-    curRegion = el.dataset.region;
-    document.querySelectorAll('#regionSeg .sg').forEach(function(s){ s.classList.toggle('on', s === el); });
-    renderIvy();
-  });
-});
+// 2026-11-06：区域切换移到 p1 独家榜单区入口卡（美本爬藤榜/英港新爬藤榜），p3 内不再切换
 
 var toastTimer;
 function toast(msg){
